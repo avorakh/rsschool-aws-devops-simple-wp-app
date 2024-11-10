@@ -37,9 +37,8 @@ jobs:
           args: get nodes
 
       - name: Create namespace
-        uses: actions-hub/kubectl@master
-        with:
-          args: create namespace ${{ env.NAMESPACE }}
+        run: |
+          kubectl get namespace ${{ env.NAMESPACE }} || kubectl create namespace ${{ env.NAMESPACE }}
 
       - name: Set up Helm
         uses: azure/setup-helm@v4.2.0
