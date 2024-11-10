@@ -3,6 +3,8 @@ name: 'Helm - Validations'
 env:
   HELM_MARIADB_CHART_PATH: "./mariadb"
   HELM_MARIADB_RELEASE: "mariadb-wp"
+  HELM_WORDPRESS_CHART_PATH: "./wordpress"
+  HELM_WORDPRESS_RELEASE: "wordpress"
   NAMESPACE: "wordpress-namespace"
 
 on:
@@ -39,7 +41,17 @@ jobs:
         id: lint-mariadb
         run: helm lint ${{ env.HELM_MARIADB_CHART_PATH }}
 
-      - name: Run Installation
+      - name: Run Installation - MariaDB
         id: install-mariadb
         run: |
           helm install ${{ env.HELM_MARIADB_RELEASE }} -n ${{ env.NAMESPACE }} ${{ env.HELM_MARIADB_CHART_PATH }}
+
+      - name: Run lint - WordPress
+        id: lint-wordpress
+        run: helm lint ${{ env.HELM_WORDPRESS_CHART_PATH }}
+
+
+      - name: Run Installation - WordPress
+        id: install-wordpress
+        run: |
+          helm install ${{ env.HELM_WORDPRESS_RELEASE }} -n ${{ env.NAMESPACE }} ${{ env.HELM_WORDPRESS_CHART_PATH }}
