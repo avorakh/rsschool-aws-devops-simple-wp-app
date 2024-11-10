@@ -8,7 +8,6 @@ env:
   NAMESPACE: "wordpress-namespace"
 
 on:
-  push:
   pull_request:
   workflow_dispatch:
 
