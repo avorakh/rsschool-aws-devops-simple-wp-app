@@ -1,0 +1,13 @@
+namespace: wordpress-namespace
+
+mariadb:
+  image: bitnami/mariadb:latest
+  env:
+    ALLOW_EMPTY_PASSWORD: "yes"
+    MARIADB_USER: "bn_wordpress"
+    MARIADB_PASSWORD: "bitnami"
+    MARIADB_DATABASE: "bitnami_wordpress"
+  persistence:
+    size: 3Gi
+  port: 3306
+  replicas: 1

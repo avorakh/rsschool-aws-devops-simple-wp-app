@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.wordpress.replicas }}
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+        - name: wordpress
+          image: {{ .Values.wordpress.image }}
+          ports:
+            - containerPort: {{ .Values.wordpress.ports.http }}
+            - containerPort: {{ .Values.wordpress.ports.https }}
+          env:
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "{{ .Values.wordpress.env.ALLOW_EMPTY_PASSWORD }}"
+            - name: WORDPRESS_DATABASE_HOST
+              value: {{ .Values.wordpress.env.WORDPRESS_DATABASE_HOST }}
+            - name: WORDPRESS_DATABASE_USER
+              value: {{ .Values.wordpress.env.WORDPRESS_DATABASE_USER }}
+            - name: WORDPRESS_DATABASE_PASSWORD
+              value: {{ .Values.wordpress.env.WORDPRESS_DATABASE_PASSWORD }}
+            - name: WORDPRESS_DATABASE_NAME
+              value: {{ .Values.wordpress.env.WORDPRESS_DATABASE_NAME }}
+            - name: WORDPRESS_USERNAME
+              value: {{ .Values.wordpress.env.WORDPRESS_USERNAME }}
+            - name: WORDPRESS_PASSWORD
+              value: {{ .Values.wordpress.env.WORDPRESS_PASSWORD }}
+            - name: WORDPRESS_BLOG_NAME
+              value: {{ .Values.wordpress.env.WORDPRESS_BLOG_NAME }}
+          volumeMounts:
+            - mountPath: /bitnami/wordpress
+              name: wordpress-storage
+      volumes:
+        - name: wordpress-storage
+          persistentVolumeClaim:
+            claimName: wordpress-pvc
