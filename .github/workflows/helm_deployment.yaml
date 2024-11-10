@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   lint-with-install:
-    name: 'Helm: Lint with Run Installation (kind cluster)'
+    name: 'Helm: Lint with Run Installation (k3s cluster)'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
