@@ -18,8 +18,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  lint-with-dry-install:
-    name: 'Helm: Lint with Dry Run Installation'
+  lint-with-install:
+    name: 'Helm: Lint with Run Installation (kind cluster)'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
