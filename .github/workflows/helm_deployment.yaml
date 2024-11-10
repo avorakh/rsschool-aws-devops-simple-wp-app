@@ -32,7 +32,7 @@ jobs:
       - name: Get nodes K8S cluster
         run: |
           mkdir -p ~/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > ~/.kube/config
           sudo chown 600 ~/.kube/config
 
       - name: Get nodes
