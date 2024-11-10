@@ -1,0 +1,17 @@
+name: 'Helm - Deployement'
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+jobs:
+  echo-version:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "TEST"
