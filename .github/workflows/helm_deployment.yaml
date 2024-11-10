@@ -26,16 +26,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Configure K8S cluster
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      - uses: azure/setup-kubectl@v4
+        id: install
 
       - name: Get nodes K8S cluster
-        uses: actions-hub/kubectl@master
-        with:
-          args: get nodes
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+          sudo chown 600 ~/.kube/config
 
+      - name: Get nodes
+        run: |
+          kubectl get nodess
+      
       - name: Create namespace
         run: |
           kubectl get namespace ${{ env.NAMESPACE }} || kubectl create namespace ${{ env.NAMESPACE }}
