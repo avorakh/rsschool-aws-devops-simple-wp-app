@@ -1,0 +1,23 @@
+namespace: wordpress-namespace
+
+wordpress:
+  image: bitnami/wordpress:latest
+  env:
+    ALLOW_EMPTY_PASSWORD: "yes"
+    WORDPRESS_DATABASE_USER: "bn_wordpress"
+    WORDPRESS_DATABASE_PASSWORD: "bitnami"
+    WORDPRESS_DATABASE_NAME: "bitnami_wordpress"
+    WORDPRESS_USERNAME: "avorakh"
+    WORDPRESS_PASSWORD: "Pass1234!"
+    WORDPRESS_BLOG_NAME: "aws-devops-course"
+  persistence:
+    size: 3Gi
+  replicas: 1
+  ports:
+    http: 8080
+    https: 8443
+  service:
+    type: NodePort
+  nodePorts:
+    http: 30080
+    https: 30443

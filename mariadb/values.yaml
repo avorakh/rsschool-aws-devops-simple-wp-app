@@ -8,6 +8,6 @@ mariadb:
     MARIADB_PASSWORD: "bitnami"
     MARIADB_DATABASE: "bitnami_wordpress"
   persistence:
-    size: 8Gi
+    size: 3Gi
   port: 3306
   replicas: 1
